@@ -1,0 +1,29 @@
+= Fake News App
+
+image:/screen.png?raw=true[1]
+
+This is a web application consuming a news API and displaying the most recent information about Apple.
+
+=== Done with VUE and ❤
+
+
+== Project setup
+```
+npm install
+```
+
+=== Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+=== Compiles and minifies for production
+```
+npm run build
+```
+
+=== Customize configuration
+See https://cli.vuejs.org/config/[Configuration Reference].
+
+=== Used API
+https://newsapi.org/[NEWS API]
