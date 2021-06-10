@@ -30,50 +30,45 @@
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Article from "../components/Article";
+import axios from "axios";
 export default {
 name: "Home",
   components: {Article, Footer, Header},
   data(){
     return{
+      apiKey : "0b03ebb024eb489db4da7be90962a42f",
       articles: []
     }
   },
   created() {
-    this.articles = [
-      {
-        id: 1,
-        title: "web design",
-        description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet.",
-        imageUrl:"img/4.jpg",
-        articleUrl:"/",
-        date: "10.06.2021"
-      },
-      {
-        id: 2,
-        title: "web design",
-        description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet.",
-        imageUrl:"img/2.jpg",
-        articleUrl:"/",
-        date: "10.06.2021"
-      },
-      {
-        id: 3,
-        title: "web design",
-        description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet.",
-        imageUrl:"img/3.jpg",
-        articleUrl:"/",
-        date: "10.06.2021"
-      },
-      {
-        id: 4,
-        title: "web design",
-        description: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Morbi commodo, ipsum sed pharetra gravida, orci magna rhoncus neque, id pulvinar odio lorem non turpis. Nullam sit amet.",
-        imageUrl:"img/4.jpg",
-        articleUrl:"/",
-        date: "10.06.2021"
-      },
-    ]
-  }
+
+    let currentDate = this.getCurrentDate();
+    axios.get('https://newsapi.org/v2/everything?q=Apple&from='+currentDate+'&sortBy=popularity&apiKey='+this.apiKey)
+        .then((response => {
+          this.articles = [];
+          let fetchArticles = response.data.articles;
+
+          for(let i=0 ; i < fetchArticles.length; i++){
+            this.articles.push({
+              description: fetchArticles[i].description,
+              imageUrl: fetchArticles[i].urlToImage,
+              articleUrl: fetchArticles[i].url,
+              title: fetchArticles[i].title,
+              date: fetchArticles[i].publishedAt,
+            })
+          }
+        }));
+  },
+  methods:{
+      getCurrentDate(){
+        let today = new Date();
+        let dd = String(today.getDate()).padStart(2, '0');
+        let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        let yyyy = today.getFullYear();
+
+        return  yyyy+'-'+mm+'-'+dd;
+      }
+  },
 }
 </script>
 
