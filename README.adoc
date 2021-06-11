@@ -27,3 +27,7 @@ See https://cli.vuejs.org/config/[Configuration Reference].
 
 === Used API
 https://newsapi.org/[NEWS API]
+
+Don't forget to change the API key here
+
+image:/key.png?raw=true[1]
