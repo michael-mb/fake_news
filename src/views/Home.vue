@@ -43,16 +43,15 @@ name: "Home",
             .then((response => {
                 this.articles = [];
                 let fetchArticles = response.data.articles;
-
-                for(let i=0 ; i < fetchArticles.length; i++){
+                Object.values(fetchArticles).forEach((elem) =>{
                   this.articles.push({
-                    description: fetchArticles[i].description,
-                    imageUrl: fetchArticles[i].urlToImage,
-                    articleUrl: fetchArticles[i].url,
-                    title: fetchArticles[i].title,
-                    date: fetchArticles[i].publishedAt,
+                    description: elem.description,
+                    imageUrl: elem.urlToImage,
+                    articleUrl: elem.url,
+                    title: elem.title,
+                    date: elem.publishedAt,
                   })
-                }
+                })
             }));
     },
   methods:{
